@@ -120,8 +120,8 @@ exports.UserController = void 0;
 const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
 const user_service_1 = __webpack_require__(8);
-const create_user_dto_1 = __webpack_require__(10);
-const update_user_dto_1 = __webpack_require__(11);
+const update_user_dto_1 = __webpack_require__(10);
+const types_1 = __webpack_require__(12);
 let UserController = exports.UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
@@ -146,7 +146,7 @@ tslib_1.__decorate([
     (0, common_1.Post)(),
     tslib_1.__param(0, (0, common_1.Body)()),
     tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [typeof (_b = typeof create_user_dto_1.CreateUserDto !== "undefined" && create_user_dto_1.CreateUserDto) === "function" ? _b : Object]),
+    tslib_1.__metadata("design:paramtypes", [typeof (_b = typeof types_1.CreateUserDto !== "undefined" && types_1.CreateUserDto) === "function" ? _b : Object]),
     tslib_1.__metadata("design:returntype", void 0)
 ], UserController.prototype, "create", null);
 tslib_1.__decorate([
@@ -217,6 +217,7 @@ let UserService = exports.UserService = class UserService {
         return `This action returns a #${id} user`;
     }
     update(id, updateUserDto) {
+        console.log(updateUserDto);
         return `This action updates a #${id} user`;
     }
     remove(id) {
@@ -246,35 +247,82 @@ exports.mockUsers = [
 
 /***/ }),
 /* 10 */
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.CreateUserDto = void 0;
-class CreateUserDto {
-}
-exports.CreateUserDto = CreateUserDto;
-
-
-/***/ }),
-/* 11 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UpdateUserDto = void 0;
-const mapped_types_1 = __webpack_require__(12);
-const create_user_dto_1 = __webpack_require__(10);
-class UpdateUserDto extends (0, mapped_types_1.PartialType)(create_user_dto_1.CreateUserDto) {
+const mapped_types_1 = __webpack_require__(11);
+const types_1 = __webpack_require__(12);
+class UpdateUserDto extends (0, mapped_types_1.PartialType)(types_1.CreateUserDto) {
 }
 exports.UpdateUserDto = UpdateUserDto;
 
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ ((module) => {
 
 module.exports = require("@nestjs/mapped-types");
+
+/***/ }),
+/* 12 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const tslib_1 = __webpack_require__(4);
+tslib_1.__exportStar(__webpack_require__(13), exports);
+
+
+/***/ }),
+/* 13 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const tslib_1 = __webpack_require__(4);
+tslib_1.__exportStar(__webpack_require__(14), exports);
+tslib_1.__exportStar(__webpack_require__(15), exports);
+
+
+/***/ }),
+/* 14 */
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.commonTypes = void 0;
+function commonTypes() {
+    return 'common-types';
+}
+exports.commonTypes = commonTypes;
+
+
+/***/ }),
+/* 15 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const tslib_1 = __webpack_require__(4);
+tslib_1.__exportStar(__webpack_require__(16), exports);
+
+
+/***/ }),
+/* 16 */
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CreateUserDto = exports.User = void 0;
+class User {
+}
+exports.User = User;
+class CreateUserDto {
+}
+exports.CreateUserDto = CreateUserDto;
+
 
 /***/ })
 /******/ 	]);

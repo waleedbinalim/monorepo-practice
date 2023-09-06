@@ -1,25 +1,15 @@
+import { getUserAPI, postUserAPI } from '../../api';
 import { NextPage } from 'next';
 import React from 'react';
+
 const getUsers = async () => {
-  const data = await fetch('http://localhost:3000/api/user', {
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-    },
-  });
-  console.log(await data.json());
+  const { data } = await getUserAPI();
+  console.log(data);
 };
 
 const postUsers = async () => {
-  const data = await fetch('http://localhost:3000/api/user', {
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-    },
-    method: 'POST',
-    body: JSON.stringify({ name: 'Jose' }),
-  });
-  console.log(await data.json());
+  const { data } = await postUserAPI({ name: 'loco' });
+  console.log(data);
 };
 
 const ChapterOnePage: NextPage = () => {
