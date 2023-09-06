@@ -1,5 +1,4 @@
-// import { User } from "apps/api/src/user/entities/user.entity";
-import { User } from '../../../user/entities/user.entity';
+import { User } from 'common/types';
 
 export const mockUsers: User[] = [
   { id: 1, name: 'yoko' },

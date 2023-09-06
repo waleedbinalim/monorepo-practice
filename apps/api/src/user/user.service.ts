@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { mockUsers } from '../utils/constants/mock/user';
-import { User } from './entities/user.entity';
-
+import { CreateUserDto, User } from 'common/types';
 @Injectable()
 export class UserService {
   create(createUserDto: CreateUserDto) {
@@ -31,6 +29,7 @@ export class UserService {
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
+    console.log(updateUserDto);
     return `This action updates a #${id} user`;
   }
 
