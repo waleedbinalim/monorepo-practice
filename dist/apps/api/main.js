@@ -114,34 +114,33 @@ exports.AppService = AppService = tslib_1.__decorate([
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
-var _a, _b, _c;
+var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UserController = void 0;
 const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
 const user_service_1 = __webpack_require__(8);
-const update_user_dto_1 = __webpack_require__(10);
 const types_1 = __webpack_require__(12);
 let UserController = exports.UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
     }
-    create(createUserDto) {
-        return this.userService.create(createUserDto);
-    }
     findAll() {
         return this.userService.findAll();
+    }
+    create(createUserDto) {
+        return this.userService.create(createUserDto);
     }
     findOne(id) {
         return this.userService.findOne(+id);
     }
-    update(id, updateUserDto) {
-        return this.userService.update(+id, updateUserDto);
-    }
-    remove(id) {
-        return this.userService.remove(+id);
-    }
 };
+tslib_1.__decorate([
+    (0, common_1.Get)(),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", []),
+    tslib_1.__metadata("design:returntype", void 0)
+], UserController.prototype, "findAll", null);
 tslib_1.__decorate([
     (0, common_1.Post)(),
     tslib_1.__param(0, (0, common_1.Body)()),
@@ -150,33 +149,12 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:returntype", void 0)
 ], UserController.prototype, "create", null);
 tslib_1.__decorate([
-    (0, common_1.Get)(),
-    tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", []),
-    tslib_1.__metadata("design:returntype", void 0)
-], UserController.prototype, "findAll", null);
-tslib_1.__decorate([
     (0, common_1.Get)(':id'),
     tslib_1.__param(0, (0, common_1.Param)('id')),
     tslib_1.__metadata("design:type", Function),
     tslib_1.__metadata("design:paramtypes", [String]),
     tslib_1.__metadata("design:returntype", void 0)
 ], UserController.prototype, "findOne", null);
-tslib_1.__decorate([
-    (0, common_1.Patch)(':id'),
-    tslib_1.__param(0, (0, common_1.Param)('id')),
-    tslib_1.__param(1, (0, common_1.Body)()),
-    tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [String, typeof (_c = typeof update_user_dto_1.UpdateUserDto !== "undefined" && update_user_dto_1.UpdateUserDto) === "function" ? _c : Object]),
-    tslib_1.__metadata("design:returntype", void 0)
-], UserController.prototype, "update", null);
-tslib_1.__decorate([
-    (0, common_1.Delete)(':id'),
-    tslib_1.__param(0, (0, common_1.Param)('id')),
-    tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [String]),
-    tslib_1.__metadata("design:returntype", void 0)
-], UserController.prototype, "remove", null);
 exports.UserController = UserController = tslib_1.__decorate([
     (0, common_1.Controller)('user'),
     tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof user_service_1.UserService !== "undefined" && user_service_1.UserService) === "function" ? _a : Object])
@@ -192,8 +170,12 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UserService = void 0;
 const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
+// import { UpdateUserDto } from './dto/update-user.dto';
 const user_1 = __webpack_require__(9);
 let UserService = exports.UserService = class UserService {
+    findAll() {
+        return { users: user_1.mockUsers };
+    }
     create(createUserDto) {
         // TODO This mockId thing doesn't work better switch to uuid
         const maxId = user_1.mockUsers.map((user) => {
@@ -210,18 +192,8 @@ let UserService = exports.UserService = class UserService {
         user_1.mockUsers.push(newUser);
         return newUser;
     }
-    findAll() {
-        return { users: user_1.mockUsers };
-    }
     findOne(id) {
         return `This action returns a #${id} user`;
-    }
-    update(id, updateUserDto) {
-        console.log(updateUserDto);
-        return `This action updates a #${id} user`;
-    }
-    remove(id) {
-        return `This action removes a #${id} user`;
     }
 };
 exports.UserService = UserService = tslib_1.__decorate([
@@ -246,26 +218,8 @@ exports.mockUsers = [
 
 
 /***/ }),
-/* 10 */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.UpdateUserDto = void 0;
-const mapped_types_1 = __webpack_require__(11);
-const types_1 = __webpack_require__(12);
-class UpdateUserDto extends (0, mapped_types_1.PartialType)(types_1.CreateUserDto) {
-}
-exports.UpdateUserDto = UpdateUserDto;
-
-
-/***/ }),
-/* 11 */
-/***/ ((module) => {
-
-module.exports = require("@nestjs/mapped-types");
-
-/***/ }),
+/* 10 */,
+/* 11 */,
 /* 12 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
