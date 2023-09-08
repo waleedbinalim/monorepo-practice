@@ -17,7 +17,7 @@ export class UserService {
       name: createUserDto.name,
     };
     mockUsers.push(newUser);
-    return { users: newUser };
+    return newUser;
   }
 
   findAll() {

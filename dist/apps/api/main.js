@@ -208,7 +208,7 @@ let UserService = exports.UserService = class UserService {
             name: createUserDto.name,
         };
         user_1.mockUsers.push(newUser);
-        return { users: newUser };
+        return newUser;
     }
     findAll() {
         return { users: user_1.mockUsers };

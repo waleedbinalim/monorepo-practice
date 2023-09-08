@@ -1,6 +1,7 @@
-import { API } from '../api.config';
+import { AxiosResponse } from 'axios';
+import { User } from 'common/types';
 import { apiUrls } from '../../constants';
-import { AxiosPromise } from 'axios';
+import { API } from '../api.config';
 
 /*
 
@@ -15,15 +16,17 @@ const postUsers = async () => {
     method: 'POST',
     body: JSON.stringify({ name: 'Jose' }),
   });
-  console.log(await data.json());
+  await data.json();
 };
 
 */
 
-export const getUserAPI = (): any => {
+export const getUserAPI = (): Promise<AxiosResponse<{ users: User[] }>> => {
   return API.get(apiUrls.getUsers);
 };
 
-export const postUserAPI = (payload: { name: string }): AxiosPromise => {
+export const postUserAPI = (payload: {
+  name: string;
+}): Promise<AxiosResponse<User>> => {
   return API.post(apiUrls.postUser, payload);
 };
