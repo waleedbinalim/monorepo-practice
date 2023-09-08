@@ -120,7 +120,7 @@ exports.UserController = void 0;
 const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
 const user_service_1 = __webpack_require__(8);
-const types_1 = __webpack_require__(12);
+const types_1 = __webpack_require__(10);
 let UserController = exports.UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
@@ -190,6 +190,8 @@ let UserService = exports.UserService = class UserService {
             name: createUserDto.name,
         };
         user_1.mockUsers.push(newUser);
+        throw new Error('PISS OFF');
+        throw new common_1.HttpException({ status: common_1.HttpStatus.FORBIDDEN, error: 'PISS OFF' }, common_1.HttpStatus.FORBIDDEN);
         return newUser;
     }
     findOne(id) {
@@ -218,30 +220,28 @@ exports.mockUsers = [
 
 
 /***/ }),
-/* 10 */,
-/* 11 */,
-/* 12 */
+/* 10 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const tslib_1 = __webpack_require__(4);
+tslib_1.__exportStar(__webpack_require__(11), exports);
+
+
+/***/ }),
+/* 11 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const tslib_1 = __webpack_require__(4);
+tslib_1.__exportStar(__webpack_require__(12), exports);
 tslib_1.__exportStar(__webpack_require__(13), exports);
 
 
 /***/ }),
-/* 13 */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-const tslib_1 = __webpack_require__(4);
-tslib_1.__exportStar(__webpack_require__(14), exports);
-tslib_1.__exportStar(__webpack_require__(15), exports);
-
-
-/***/ }),
-/* 14 */
+/* 12 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -254,17 +254,17 @@ exports.commonTypes = commonTypes;
 
 
 /***/ }),
-/* 15 */
+/* 13 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const tslib_1 = __webpack_require__(4);
-tslib_1.__exportStar(__webpack_require__(16), exports);
+tslib_1.__exportStar(__webpack_require__(14), exports);
 
 
 /***/ }),
-/* 16 */
+/* 14 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
