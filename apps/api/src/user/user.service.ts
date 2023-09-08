@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 // import { UpdateUserDto } from './dto/update-user.dto';
 import { mockUsers } from '../utils/constants/mock/user';
 import { CreateUserDto, User } from 'common/types';
@@ -9,7 +9,6 @@ export class UserService {
   }
 
   create(createUserDto: CreateUserDto) {
-    // TODO This mockId thing doesn't work better switch to uuid
     const maxId = mockUsers.map((user): number => {
       const { id } = user;
       if (typeof id === 'string') return parseInt(id);
@@ -25,7 +24,9 @@ export class UserService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} user`;
+    const user = mockUsers.find((user) => user.id === id);
+    if (!user) throw new HttpException('User Not Found', HttpStatus.NOT_FOUND);
+    return user;
   }
 
   // update(id: number, updateUserDto: UpdateUserDto) {

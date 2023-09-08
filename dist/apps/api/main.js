@@ -177,7 +177,6 @@ let UserService = exports.UserService = class UserService {
         return { users: user_1.mockUsers };
     }
     create(createUserDto) {
-        // TODO This mockId thing doesn't work better switch to uuid
         const maxId = user_1.mockUsers.map((user) => {
             const { id } = user;
             if (typeof id === 'string')
@@ -190,12 +189,13 @@ let UserService = exports.UserService = class UserService {
             name: createUserDto.name,
         };
         user_1.mockUsers.push(newUser);
-        throw new Error('PISS OFF');
-        throw new common_1.HttpException({ status: common_1.HttpStatus.FORBIDDEN, error: 'PISS OFF' }, common_1.HttpStatus.FORBIDDEN);
         return newUser;
     }
     findOne(id) {
-        return `This action returns a #${id} user`;
+        const user = user_1.mockUsers.find((user) => user.id === id);
+        if (!user)
+            throw new common_1.HttpException('User Not Found', common_1.HttpStatus.NOT_FOUND);
+        return user;
     }
 };
 exports.UserService = UserService = tslib_1.__decorate([

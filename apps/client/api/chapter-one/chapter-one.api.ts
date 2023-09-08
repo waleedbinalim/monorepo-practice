@@ -25,6 +25,12 @@ export const getUserAPI = (): Promise<AxiosResponse<{ users: User[] }>> => {
   return API.get(apiUrls.getUsers);
 };
 
+export const getUserByIdAPI = (
+  id: string | number
+): Promise<AxiosResponse<User>> => {
+  return API.get(apiUrls.getUsersById(id));
+};
+
 export const postUserAPI = (payload: {
   name: string;
 }): Promise<AxiosResponse<User>> => {
