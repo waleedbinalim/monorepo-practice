@@ -1,5 +1,5 @@
 import { getUserByIdAPI, patchUserAPI, postUserAPI } from '@/api';
-import { GetUsersSection } from '@/components';
+import { GetUserByIdSection, GetUsersSection } from '@/components';
 import { errMessages } from '@/constants';
 import { handleAPIError } from '@/utils/helpers';
 import { User } from 'common/types';
@@ -46,26 +46,7 @@ const ChapterOnePage: NextPage = () => {
         <div className="flex gap-8 w-full">
           <div className="flex flex-col gap-4 w-1/2 px-4 py-2">
             <GetUsersSection setUsers={setUsers} />
-
-            <form
-              className="flex flex-col gap-1"
-              onSubmit={async (e) => {
-                e.preventDefault();
-                const id = idRef?.current?.value;
-                if (!id) return;
-                const user = await getUserById(id);
-                setUsers([user]);
-              }}
-            >
-              <label htmlFor="id">User Id:</label>
-              <input className="border-2 px-4 py-2" type="text" ref={idRef} />
-              <button
-                type="submit"
-                className="text-white bg-blue-600 px-4 py-2 rounded-lg"
-              >
-                GET by ID
-              </button>
-            </form>
+            <GetUserByIdSection setUsers={setUsers} />
 
             <div className="w-full">
               <form
