@@ -1,14 +1,9 @@
 import { User } from 'common/types';
-import {
-  getUserAPI,
-  getUserByIdAPI,
-  patchUserAPI,
-  postUserAPI,
-} from '../../api';
+import { getUserAPI, getUserByIdAPI, patchUserAPI, postUserAPI } from '@/api';
 import { NextPage } from 'next';
 import React, { useRef, useState } from 'react';
-import { handleAPIError } from '../../utils/helpers';
-import { errMessages } from '../../constants';
+import { errMessages } from '@/constants';
+import { handleAPIError } from '@/utils/helpers';
 
 const getUsers = async () => {
   try {
