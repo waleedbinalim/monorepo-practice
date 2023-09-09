@@ -2,7 +2,8 @@ import { User } from 'common/types';
 import { getUserAPI, getUserByIdAPI, postUserAPI } from '../../api';
 import { NextPage } from 'next';
 import React, { useRef, useState } from 'react';
-// import { isAxiosError } from 'axios';
+import { handleAPIError } from '../../utils/helpers';
+import { errMessages } from '../../constants';
 
 const getUsers = async () => {
   try {
@@ -10,13 +11,8 @@ const getUsers = async () => {
     const { users } = data;
     return users;
   } catch (error) {
-    // if (isAxiosError(error)) {
-    //   const { response } = error;
-    //   console.log('WE HERE');
-    //   console.log(response);
-    //   console.log(response?.data?.statusCode);
-    // }
-    throw 'Error Ocurred';
+    handleAPIError(error);
+    throw errMessages.unknown;
   }
 };
 
@@ -25,13 +21,8 @@ const getUserById = async (id: string | number) => {
     const { data } = await getUserByIdAPI(id);
     return data;
   } catch (error) {
-    // if (isAxiosError(error)) {
-    //   const { response } = error;
-    //   console.log('WE HERE');
-    //   console.log(response);
-    //   console.log(response?.data?.statusCode);
-    // }
-    throw 'Error Ocurred';
+    handleAPIError(error);
+    throw errMessages.unknown;
   }
 };
 
@@ -40,7 +31,7 @@ const postUsers = async (name: string) => {
     const { data } = await postUserAPI({ name });
     return data;
   } catch (error) {
-    throw 'Unknown Error Ocurred';
+    throw errMessages.unknown;
   }
 };
 
@@ -111,7 +102,7 @@ const ChapterOnePage: NextPage = () => {
             </div>
           </div>
 
-          <div className="border-2 rounded-lg w-1/2 px-4 py-2">
+          <div className="border-2 rounded-lg w-1/2 px-4 py-2 font-semibold">
             Users / Output:
             <ul>
               {users?.map((user) => {

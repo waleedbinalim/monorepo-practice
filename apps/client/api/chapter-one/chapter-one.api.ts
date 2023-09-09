@@ -28,6 +28,8 @@ export const getUserAPI = (): Promise<AxiosResponse<{ users: User[] }>> => {
 export const getUserByIdAPI = (
   id: string | number
 ): Promise<AxiosResponse<User>> => {
+  // IF USING TS can also be done this way
+  // return API.get<User>(apiUrls.getUsersById(id));
   return API.get(apiUrls.getUsersById(id));
 };
 
