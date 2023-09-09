@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 // import { UpdateUserDto } from './dto/update-user.dto';
 import { mockUsers } from '../utils/constants/mock/user';
 import { CreateUserDto, User } from 'common/types';
+import { UpdateUserDto } from './dto/update-user.dto';
 @Injectable()
 export class UserService {
   findAll() {
@@ -29,10 +30,22 @@ export class UserService {
     return user;
   }
 
-  // update(id: number, updateUserDto: UpdateUserDto) {
-  //   console.log(updateUserDto);
-  //   return `This action updates a #${id} user`;
-  // }
+  update(id: number, updateUserDto: UpdateUserDto) {
+    const indexOfuser = mockUsers.findIndex((user) => {
+      return user.id.toString() === id.toString();
+    });
+
+    mockUsers[indexOfuser] = {
+      id: mockUsers[indexOfuser].id,
+      name: updateUserDto.name,
+    };
+
+    if (indexOfuser === -1) {
+      throw new HttpException('User Not Found', HttpStatus.NOT_FOUND);
+    }
+
+    return mockUsers[indexOfuser];
+  }
 
   // remove(id: number) {
   //   return `This action removes a #${id} user`;

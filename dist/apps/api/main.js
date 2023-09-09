@@ -106,13 +106,14 @@ module.exports = require("@nestjs/swagger");
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
-var _a, _b;
+var _a, _b, _c;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UserController = void 0;
 const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
 const user_service_1 = __webpack_require__(9);
-const types_1 = __webpack_require__(11);
+const update_user_dto_1 = __webpack_require__(11);
+const types_1 = __webpack_require__(13);
 const swagger_1 = __webpack_require__(7);
 let UserController = exports.UserController = class UserController {
     constructor(userService) {
@@ -126,6 +127,9 @@ let UserController = exports.UserController = class UserController {
     }
     findOne(id) {
         return this.userService.findOne(+id);
+    }
+    update(id, updateUserDto) {
+        return this.userService.update(+id, updateUserDto);
     }
 };
 tslib_1.__decorate([
@@ -151,6 +155,15 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:paramtypes", [String]),
     tslib_1.__metadata("design:returntype", void 0)
 ], UserController.prototype, "findOne", null);
+tslib_1.__decorate([
+    (0, swagger_1.ApiCreatedResponse)({ type: types_1.User }),
+    (0, common_1.Patch)(':id'),
+    tslib_1.__param(0, (0, common_1.Param)('id')),
+    tslib_1.__param(1, (0, common_1.Body)()),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [Object, typeof (_c = typeof update_user_dto_1.UpdateUserDto !== "undefined" && update_user_dto_1.UpdateUserDto) === "function" ? _c : Object]),
+    tslib_1.__metadata("design:returntype", void 0)
+], UserController.prototype, "update", null);
 exports.UserController = UserController = tslib_1.__decorate([
     (0, swagger_1.ApiTags)('User'),
     (0, common_1.Controller)('user'),
@@ -194,6 +207,19 @@ let UserService = exports.UserService = class UserService {
             throw new common_1.HttpException('User Not Found', common_1.HttpStatus.NOT_FOUND);
         return user;
     }
+    update(id, updateUserDto) {
+        const indexOfuser = user_1.mockUsers.findIndex((user) => {
+            return user.id.toString() === id.toString();
+        });
+        user_1.mockUsers[indexOfuser] = {
+            id: user_1.mockUsers[indexOfuser].id,
+            name: updateUserDto.name,
+        };
+        if (indexOfuser === -1) {
+            throw new common_1.HttpException('User Not Found', common_1.HttpStatus.NOT_FOUND);
+        }
+        return user_1.mockUsers[indexOfuser];
+    }
 };
 exports.UserService = UserService = tslib_1.__decorate([
     (0, common_1.Injectable)()
@@ -222,23 +248,49 @@ exports.mockUsers = [
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UpdateUserDto = void 0;
 const tslib_1 = __webpack_require__(4);
-tslib_1.__exportStar(__webpack_require__(12), exports);
+const mapped_types_1 = __webpack_require__(12);
+const swagger_1 = __webpack_require__(7);
+const types_1 = __webpack_require__(13);
+class UpdateUserDto extends (0, mapped_types_1.PartialType)(types_1.CreateUserDto) {
+}
+exports.UpdateUserDto = UpdateUserDto;
+tslib_1.__decorate([
+    (0, swagger_1.ApiProperty)({ required: true }),
+    tslib_1.__metadata("design:type", String)
+], UpdateUserDto.prototype, "name", void 0);
 
 
 /***/ }),
 /* 12 */
+/***/ ((module) => {
+
+module.exports = require("@nestjs/mapped-types");
+
+/***/ }),
+/* 13 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const tslib_1 = __webpack_require__(4);
-tslib_1.__exportStar(__webpack_require__(13), exports);
 tslib_1.__exportStar(__webpack_require__(14), exports);
 
 
 /***/ }),
-/* 13 */
+/* 14 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const tslib_1 = __webpack_require__(4);
+tslib_1.__exportStar(__webpack_require__(15), exports);
+tslib_1.__exportStar(__webpack_require__(16), exports);
+
+
+/***/ }),
+/* 15 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -251,17 +303,17 @@ exports.commonTypes = commonTypes;
 
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const tslib_1 = __webpack_require__(4);
-tslib_1.__exportStar(__webpack_require__(15), exports);
+tslib_1.__exportStar(__webpack_require__(17), exports);
 
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -283,9 +335,17 @@ tslib_1.__decorate([
     (0, swagger_1.ApiProperty)({ required: true }),
     tslib_1.__metadata("design:type", String)
 ], User.prototype, "name", void 0);
-class CreateUserDto extends User {
+class CreateUserDto {
 }
 exports.CreateUserDto = CreateUserDto;
+tslib_1.__decorate([
+    (0, swagger_1.ApiProperty)(),
+    tslib_1.__metadata("design:type", String)
+], CreateUserDto.prototype, "name", void 0);
+tslib_1.__decorate([
+    (0, swagger_1.ApiProperty)({ required: false }),
+    tslib_1.__metadata("design:type", Object)
+], CreateUserDto.prototype, "id", void 0);
 
 
 /***/ })

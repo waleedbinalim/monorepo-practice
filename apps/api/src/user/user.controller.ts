@@ -35,10 +35,14 @@ export class UserController {
     return this.userService.findOne(+id);
   }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-  //   return this.userService.update(+id, updateUserDto);
-  // }
+  @ApiCreatedResponse({ type: User })
+  @Patch(':id')
+  update(
+    @Param('id') id: string | number,
+    @Body() updateUserDto: UpdateUserDto
+  ) {
+    return this.userService.update(+id, updateUserDto);
+  }
 
   // @Delete(':id')
   // remove(@Param('id') id: string) {
