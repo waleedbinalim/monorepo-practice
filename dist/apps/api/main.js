@@ -278,6 +278,12 @@ class CreateUserDto {
 exports.CreateUserDto = CreateUserDto;
 
 
+/***/ }),
+/* 15 */
+/***/ ((module) => {
+
+module.exports = require("@nestjs/swagger");
+
 /***/ })
 /******/ 	]);
 /************************************************************************/
@@ -311,16 +317,23 @@ var __webpack_exports__ = {};
 (() => {
 var exports = __webpack_exports__;
 
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const common_1 = __webpack_require__(1);
 const core_1 = __webpack_require__(2);
 const app_module_1 = __webpack_require__(3);
+const swagger_1 = __webpack_require__(15);
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
+    // SWAGGER ==============================================
+    const config = new swagger_1.DocumentBuilder()
+        .setTitle('Monorepo Practice')
+        .setDescription('Docs for NestJS API')
+        .setVersion('1.0')
+        .addTag('monorepo')
+        .build();
+    const document = swagger_1.SwaggerModule.createDocument(app, config);
+    swagger_1.SwaggerModule.setup('docs', app, document);
+    // ==============================================
     app.enableCors();
     const globalPrefix = 'api';
     app.setGlobalPrefix(globalPrefix);
