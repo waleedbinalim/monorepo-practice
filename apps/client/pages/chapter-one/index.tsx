@@ -1,51 +1,41 @@
+import {
+  CreateUserSection,
+  GetUserByIdSection,
+  GetUsersSection,
+  PatchUserSection,
+} from '@/components';
+import { User } from 'common/types';
 import { NextPage } from 'next';
-import React from 'react';
-const getUsers = async () => {
-  const data = await fetch('http://localhost:3000/api/user', {
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-    },
-  });
-  console.log(await data.json());
-};
-
-const postUsers = async () => {
-  const data = await fetch('http://localhost:3000/api/user', {
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-    },
-    method: 'POST',
-    body: JSON.stringify({ name: 'Jose' }),
-  });
-  console.log(await data.json());
-};
+import { useState } from 'react';
 
 const ChapterOnePage: NextPage = () => {
+  const [users, setUsers] = useState<User[]>([]);
+
   return (
     <>
       <div className="flex flex-col align-middle justify-center items-center">
-        <div className="text-xl font-bold">Heres the dumb CRUD you ordered</div>
+        <div className="text-xl font-bold mb-8">Heres a sample CRUD below:</div>
 
-        <div className="flex flex-col">
-          <p className="text-lg">GET REQUEST BELOW</p>
-          <div>
-            <button
-              onClick={() => getUsers()}
-              className="border-green-200 border-2 px-4 py-2 rounded-full"
-            >
-              GET
-            </button>
+        <div className="flex gap-8 w-full">
+          <div className="flex flex-col gap-4 w-1/2 px-4 py-2">
+            <GetUsersSection setUsers={setUsers} />
+            <GetUserByIdSection setUsers={setUsers} />
+            <CreateUserSection setUsers={setUsers} />
+            <PatchUserSection setUsers={setUsers} />
           </div>
-          {/*  */}
-          <div>
-            <button
-              onClick={() => postUsers()}
-              className="border-green-200 border-2 px-4 py-2 rounded-full"
-            >
-              POST
-            </button>
+
+          <div className="border-2 rounded-lg w-1/2 px-4 py-2 font-semibold">
+            Users / Output:
+            <ul>
+              {users?.map((user) => {
+                const { id, name } = user;
+                return (
+                  <li key={id}>
+                    {id}: {name}
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         </div>
       </div>

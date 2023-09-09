@@ -24,8 +24,8 @@ const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
 const app_controller_1 = __webpack_require__(5);
 const app_service_1 = __webpack_require__(6);
-const user_controller_1 = __webpack_require__(7);
-const user_service_1 = __webpack_require__(8);
+const user_controller_1 = __webpack_require__(8);
+const user_service_1 = __webpack_require__(9);
 let AppModule = exports.AppModule = class AppModule {
 };
 exports.AppModule = AppModule = tslib_1.__decorate([
@@ -54,15 +54,13 @@ exports.AppController = void 0;
 const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
 const app_service_1 = __webpack_require__(6);
+const swagger_1 = __webpack_require__(7);
 let AppController = exports.AppController = class AppController {
     constructor(appService) {
         this.appService = appService;
     }
     getData() {
         return this.appService.getData();
-    }
-    getYoBro() {
-        return { message: 'Yo Bro' };
     }
 };
 tslib_1.__decorate([
@@ -71,13 +69,8 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:paramtypes", []),
     tslib_1.__metadata("design:returntype", void 0)
 ], AppController.prototype, "getData", null);
-tslib_1.__decorate([
-    (0, common_1.Get)('/yo-bro'),
-    tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", []),
-    tslib_1.__metadata("design:returntype", void 0)
-], AppController.prototype, "getYoBro", null);
 exports.AppController = AppController = tslib_1.__decorate([
+    (0, swagger_1.ApiTags)('Base'),
     (0, common_1.Controller)(),
     tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof app_service_1.AppService !== "undefined" && app_service_1.AppService) === "function" ? _a : Object])
 ], AppController);
@@ -92,16 +85,9 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AppService = void 0;
 const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
-const mockUsers = [
-    { id: 1, name: 'yoko' },
-    { id: 2, name: 'hoko' },
-    { id: 3, name: 'goko' },
-    { id: 4, name: 'boko' },
-    { id: 5, name: 'shoko' },
-];
 let AppService = exports.AppService = class AppService {
     getData() {
-        return { users: mockUsers };
+        return 'Hello World';
     }
 };
 exports.AppService = AppService = tslib_1.__decorate([
@@ -111,6 +97,12 @@ exports.AppService = AppService = tslib_1.__decorate([
 
 /***/ }),
 /* 7 */
+/***/ ((module) => {
+
+module.exports = require("@nestjs/swagger");
+
+/***/ }),
+/* 8 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -119,18 +111,19 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UserController = void 0;
 const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
-const user_service_1 = __webpack_require__(8);
-const create_user_dto_1 = __webpack_require__(10);
+const user_service_1 = __webpack_require__(9);
 const update_user_dto_1 = __webpack_require__(11);
+const types_1 = __webpack_require__(13);
+const swagger_1 = __webpack_require__(7);
 let UserController = exports.UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
     }
-    create(createUserDto) {
-        return this.userService.create(createUserDto);
-    }
     findAll() {
         return this.userService.findAll();
+    }
+    create(createUserDto) {
+        return this.userService.create(createUserDto);
     }
     findOne(id) {
         return this.userService.findOne(+id);
@@ -143,19 +136,22 @@ let UserController = exports.UserController = class UserController {
     }
 };
 tslib_1.__decorate([
-    (0, common_1.Post)(),
-    tslib_1.__param(0, (0, common_1.Body)()),
-    tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [typeof (_b = typeof create_user_dto_1.CreateUserDto !== "undefined" && create_user_dto_1.CreateUserDto) === "function" ? _b : Object]),
-    tslib_1.__metadata("design:returntype", void 0)
-], UserController.prototype, "create", null);
-tslib_1.__decorate([
+    (0, swagger_1.ApiCreatedResponse)({ type: types_1.User, isArray: true }),
     (0, common_1.Get)(),
     tslib_1.__metadata("design:type", Function),
     tslib_1.__metadata("design:paramtypes", []),
     tslib_1.__metadata("design:returntype", void 0)
 ], UserController.prototype, "findAll", null);
 tslib_1.__decorate([
+    (0, swagger_1.ApiCreatedResponse)({ type: types_1.User }),
+    (0, common_1.Post)(),
+    tslib_1.__param(0, (0, common_1.Body)()),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [typeof (_b = typeof types_1.CreateUserDto !== "undefined" && types_1.CreateUserDto) === "function" ? _b : Object]),
+    tslib_1.__metadata("design:returntype", void 0)
+], UserController.prototype, "create", null);
+tslib_1.__decorate([
+    (0, swagger_1.ApiCreatedResponse)({ type: types_1.User }),
     (0, common_1.Get)(':id'),
     tslib_1.__param(0, (0, common_1.Param)('id')),
     tslib_1.__metadata("design:type", Function),
@@ -163,11 +159,12 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:returntype", void 0)
 ], UserController.prototype, "findOne", null);
 tslib_1.__decorate([
+    (0, swagger_1.ApiCreatedResponse)({ type: types_1.User }),
     (0, common_1.Patch)(':id'),
     tslib_1.__param(0, (0, common_1.Param)('id')),
     tslib_1.__param(1, (0, common_1.Body)()),
     tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [String, typeof (_c = typeof update_user_dto_1.UpdateUserDto !== "undefined" && update_user_dto_1.UpdateUserDto) === "function" ? _c : Object]),
+    tslib_1.__metadata("design:paramtypes", [Object, typeof (_c = typeof update_user_dto_1.UpdateUserDto !== "undefined" && update_user_dto_1.UpdateUserDto) === "function" ? _c : Object]),
     tslib_1.__metadata("design:returntype", void 0)
 ], UserController.prototype, "update", null);
 tslib_1.__decorate([
@@ -178,13 +175,14 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:returntype", void 0)
 ], UserController.prototype, "remove", null);
 exports.UserController = UserController = tslib_1.__decorate([
+    (0, swagger_1.ApiTags)('User'),
     (0, common_1.Controller)('user'),
     tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof user_service_1.UserService !== "undefined" && user_service_1.UserService) === "function" ? _a : Object])
 ], UserController);
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -192,10 +190,13 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UserService = void 0;
 const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
-const user_1 = __webpack_require__(9);
+// import { UpdateUserDto } from './dto/update-user.dto';
+const user_1 = __webpack_require__(10);
 let UserService = exports.UserService = class UserService {
+    findAll() {
+        return { users: user_1.mockUsers };
+    }
     create(createUserDto) {
-        // TODO This mockId thing doesn't work better switch to uuid
         const maxId = user_1.mockUsers.map((user) => {
             const { id } = user;
             if (typeof id === 'string')
@@ -208,19 +209,30 @@ let UserService = exports.UserService = class UserService {
             name: createUserDto.name,
         };
         user_1.mockUsers.push(newUser);
-        return { users: newUser };
-    }
-    findAll() {
-        return { users: user_1.mockUsers };
+        return newUser;
     }
     findOne(id) {
-        return `This action returns a #${id} user`;
+        const user = user_1.mockUsers.find((user) => user.id === id);
+        if (!user)
+            throw new common_1.HttpException('User Not Found', common_1.HttpStatus.NOT_FOUND);
+        return user;
     }
     update(id, updateUserDto) {
-        return `This action updates a #${id} user`;
+        const indexOfuser = user_1.mockUsers.findIndex((user) => {
+            return user.id.toString() === id.toString();
+        });
+        user_1.mockUsers[indexOfuser] = {
+            id: user_1.mockUsers[indexOfuser].id,
+            name: updateUserDto.name,
+        };
+        if (indexOfuser === -1) {
+            throw new common_1.HttpException('User Not Found', common_1.HttpStatus.NOT_FOUND);
+        }
+        return user_1.mockUsers[indexOfuser];
     }
     remove(id) {
-        return `This action removes a #${id} user`;
+        const filtered = user_1.mockUsers.filter((user) => user.id.toString() !== id.toString());
+        return { users: filtered };
     }
 };
 exports.UserService = UserService = tslib_1.__decorate([
@@ -229,7 +241,7 @@ exports.UserService = UserService = tslib_1.__decorate([
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -245,29 +257,23 @@ exports.mockUsers = [
 
 
 /***/ }),
-/* 10 */
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.CreateUserDto = void 0;
-class CreateUserDto {
-}
-exports.CreateUserDto = CreateUserDto;
-
-
-/***/ }),
 /* 11 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UpdateUserDto = void 0;
+const tslib_1 = __webpack_require__(4);
 const mapped_types_1 = __webpack_require__(12);
-const create_user_dto_1 = __webpack_require__(10);
-class UpdateUserDto extends (0, mapped_types_1.PartialType)(create_user_dto_1.CreateUserDto) {
+const swagger_1 = __webpack_require__(7);
+const types_1 = __webpack_require__(13);
+class UpdateUserDto extends (0, mapped_types_1.PartialType)(types_1.CreateUserDto) {
 }
 exports.UpdateUserDto = UpdateUserDto;
+tslib_1.__decorate([
+    (0, swagger_1.ApiProperty)({ required: true }),
+    tslib_1.__metadata("design:type", String)
+], UpdateUserDto.prototype, "name", void 0);
 
 
 /***/ }),
@@ -275,6 +281,86 @@ exports.UpdateUserDto = UpdateUserDto;
 /***/ ((module) => {
 
 module.exports = require("@nestjs/mapped-types");
+
+/***/ }),
+/* 13 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const tslib_1 = __webpack_require__(4);
+tslib_1.__exportStar(__webpack_require__(14), exports);
+
+
+/***/ }),
+/* 14 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const tslib_1 = __webpack_require__(4);
+tslib_1.__exportStar(__webpack_require__(15), exports);
+tslib_1.__exportStar(__webpack_require__(16), exports);
+
+
+/***/ }),
+/* 15 */
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.commonTypes = void 0;
+function commonTypes() {
+    return 'common-types';
+}
+exports.commonTypes = commonTypes;
+
+
+/***/ }),
+/* 16 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const tslib_1 = __webpack_require__(4);
+tslib_1.__exportStar(__webpack_require__(17), exports);
+
+
+/***/ }),
+/* 17 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CreateUserDto = exports.User = void 0;
+const tslib_1 = __webpack_require__(4);
+const swagger_1 = __webpack_require__(7);
+class User {
+}
+exports.User = User;
+tslib_1.__decorate([
+    (0, swagger_1.ApiProperty)({
+        oneOf: [{ type: 'string' }, { type: 'number' }],
+        required: true,
+    }),
+    tslib_1.__metadata("design:type", Object)
+], User.prototype, "id", void 0);
+tslib_1.__decorate([
+    (0, swagger_1.ApiProperty)({ required: true }),
+    tslib_1.__metadata("design:type", String)
+], User.prototype, "name", void 0);
+class CreateUserDto {
+}
+exports.CreateUserDto = CreateUserDto;
+tslib_1.__decorate([
+    (0, swagger_1.ApiProperty)(),
+    tslib_1.__metadata("design:type", String)
+], CreateUserDto.prototype, "name", void 0);
+tslib_1.__decorate([
+    (0, swagger_1.ApiProperty)({ required: false }),
+    tslib_1.__metadata("design:type", Object)
+], CreateUserDto.prototype, "id", void 0);
+
 
 /***/ })
 /******/ 	]);
@@ -309,19 +395,26 @@ var __webpack_exports__ = {};
 (() => {
 var exports = __webpack_exports__;
 
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const common_1 = __webpack_require__(1);
 const core_1 = __webpack_require__(2);
 const app_module_1 = __webpack_require__(3);
+const swagger_1 = __webpack_require__(7);
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
-    app.enableCors();
     const globalPrefix = 'api';
     app.setGlobalPrefix(globalPrefix);
+    // SWAGGER ==============================================
+    const config = new swagger_1.DocumentBuilder()
+        .setTitle('Monorepo Practice')
+        .setDescription('Docs for NestJS API')
+        .setVersion('1.0')
+        .addTag('monorepo')
+        .build();
+    const document = swagger_1.SwaggerModule.createDocument(app, config);
+    swagger_1.SwaggerModule.setup('docs', app, document);
+    // ==============================================
+    app.enableCors();
     const port = process.env.PORT || 3000;
     await app.listen(port);
     common_1.Logger.log(`🚀 Application is running on: http://localhost:${port}/${globalPrefix}`);

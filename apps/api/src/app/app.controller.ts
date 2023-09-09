@@ -1,7 +1,8 @@
 import { Controller, Get } from '@nestjs/common';
 
 import { AppService } from './app.service';
-
+import { ApiTags } from '@nestjs/swagger';
+@ApiTags('Base')
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
@@ -9,10 +10,5 @@ export class AppController {
   @Get()
   getData() {
     return this.appService.getData();
-  }
-
-  @Get('/yo-bro')
-  getYoBro() {
-    return { message: 'Yo Bro' };
   }
 }

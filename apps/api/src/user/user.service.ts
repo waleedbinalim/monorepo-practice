@@ -1,13 +1,15 @@
-import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+// import { UpdateUserDto } from './dto/update-user.dto';
 import { mockUsers } from '../utils/constants/mock/user';
-import { User } from './entities/user.entity';
-
+import { CreateUserDto, User } from 'common/types';
+import { UpdateUserDto } from './dto/update-user.dto';
 @Injectable()
 export class UserService {
+  findAll() {
+    return { users: mockUsers };
+  }
+
   create(createUserDto: CreateUserDto) {
-    // TODO This mockId thing doesn't work better switch to uuid
     const maxId = mockUsers.map((user): number => {
       const { id } = user;
       if (typeof id === 'string') return parseInt(id);
@@ -19,22 +21,36 @@ export class UserService {
       name: createUserDto.name,
     };
     mockUsers.push(newUser);
-    return { users: newUser };
-  }
-
-  findAll() {
-    return { users: mockUsers };
+    return newUser;
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} user`;
+    const user = mockUsers.find((user) => user.id === id);
+    if (!user) throw new HttpException('User Not Found', HttpStatus.NOT_FOUND);
+    return user;
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+    const indexOfuser = mockUsers.findIndex((user) => {
+      return user.id.toString() === id.toString();
+    });
+
+    mockUsers[indexOfuser] = {
+      id: mockUsers[indexOfuser].id,
+      name: updateUserDto.name,
+    };
+
+    if (indexOfuser === -1) {
+      throw new HttpException('User Not Found', HttpStatus.NOT_FOUND);
+    }
+
+    return mockUsers[indexOfuser];
   }
 
   remove(id: number) {
-    return `This action removes a #${id} user`;
+    const filtered = mockUsers.filter(
+      (user) => user.id.toString() !== id.toString()
+    );
+    return { users: filtered };
   }
 }
