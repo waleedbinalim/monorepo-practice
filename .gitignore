@@ -1,3 +1,9 @@
+# compiled output
+dist
+/dist/apps/**
+
 node_modules
 apps/client/.next/*/**
-dist
+
+dist/apps/api/main.js
+dist/apps/api/main.js.map
