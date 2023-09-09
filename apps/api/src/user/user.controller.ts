@@ -9,24 +9,27 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { CreateUserDto } from 'common/types';
-import { ApiTags } from '@nestjs/swagger';
+import { CreateUserDto, User } from 'common/types';
+import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('User')
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @ApiCreatedResponse({ type: User, isArray: true })
   @Get()
   findAll() {
     return this.userService.findAll();
   }
 
+  @ApiCreatedResponse({ type: User })
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
 
+  @ApiCreatedResponse({ type: User })
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.userService.findOne(+id);

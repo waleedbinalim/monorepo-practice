@@ -129,12 +129,14 @@ let UserController = exports.UserController = class UserController {
     }
 };
 tslib_1.__decorate([
+    (0, swagger_1.ApiCreatedResponse)({ type: types_1.User, isArray: true }),
     (0, common_1.Get)(),
     tslib_1.__metadata("design:type", Function),
     tslib_1.__metadata("design:paramtypes", []),
     tslib_1.__metadata("design:returntype", void 0)
 ], UserController.prototype, "findAll", null);
 tslib_1.__decorate([
+    (0, swagger_1.ApiCreatedResponse)({ type: types_1.User }),
     (0, common_1.Post)(),
     tslib_1.__param(0, (0, common_1.Body)()),
     tslib_1.__metadata("design:type", Function),
@@ -142,6 +144,7 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:returntype", void 0)
 ], UserController.prototype, "create", null);
 tslib_1.__decorate([
+    (0, swagger_1.ApiCreatedResponse)({ type: types_1.User }),
     (0, common_1.Get)(':id'),
     tslib_1.__param(0, (0, common_1.Param)('id')),
     tslib_1.__metadata("design:type", Function),
@@ -259,15 +262,28 @@ tslib_1.__exportStar(__webpack_require__(15), exports);
 
 /***/ }),
 /* 15 */
-/***/ ((__unused_webpack_module, exports) => {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateUserDto = exports.User = void 0;
+const tslib_1 = __webpack_require__(4);
+const swagger_1 = __webpack_require__(7);
 class User {
 }
 exports.User = User;
-class CreateUserDto {
+tslib_1.__decorate([
+    (0, swagger_1.ApiProperty)({
+        oneOf: [{ type: 'string' }, { type: 'number' }],
+        required: true,
+    }),
+    tslib_1.__metadata("design:type", Object)
+], User.prototype, "id", void 0);
+tslib_1.__decorate([
+    (0, swagger_1.ApiProperty)({ required: true }),
+    tslib_1.__metadata("design:type", String)
+], User.prototype, "name", void 0);
+class CreateUserDto extends User {
 }
 exports.CreateUserDto = CreateUserDto;
 
