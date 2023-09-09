@@ -51,8 +51,8 @@ const patchUser = async (user: User) => {
 
 const ChapterOnePage: NextPage = () => {
   const [users, setUsers] = useState<User[]>([]);
-  const nameRef = useRef<any>(null);
-  const idRef = useRef<any>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const idRef = useRef<HTMLInputElement>(null);
   return (
     <>
       <div className="flex flex-col align-middle justify-center items-center">
@@ -75,7 +75,8 @@ const ChapterOnePage: NextPage = () => {
               className="flex flex-col gap-1"
               onSubmit={async (e) => {
                 e.preventDefault();
-                const id = idRef.current?.value;
+                const id = idRef?.current?.value;
+                if (!id) return;
                 const user = await getUserById(id);
                 setUsers([user]);
               }}
@@ -95,7 +96,8 @@ const ChapterOnePage: NextPage = () => {
                 className="flex flex-col gap-1"
                 onSubmit={async (e) => {
                   e.preventDefault();
-                  const name = nameRef.current.value;
+                  const name = nameRef?.current?.value;
+                  if (!name) return;
                   const newUser = await postUsers(name);
                   setUsers((current) => [...current, newUser]);
                 }}
@@ -120,8 +122,9 @@ const ChapterOnePage: NextPage = () => {
                 className="flex flex-col gap-1"
                 onSubmit={async (e) => {
                   e.preventDefault();
-                  const id = idRef.current.value;
-                  const name = nameRef.current.value;
+                  const id = idRef?.current?.value;
+                  const name = nameRef?.current?.value;
+                  if (!name || !id) return;
                   const patchedUser = await patchUser({ id, name });
                   setUsers(() => [patchedUser]);
                 }}
