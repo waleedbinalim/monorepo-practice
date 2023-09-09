@@ -24,8 +24,8 @@ const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
 const app_controller_1 = __webpack_require__(5);
 const app_service_1 = __webpack_require__(6);
-const user_controller_1 = __webpack_require__(7);
-const user_service_1 = __webpack_require__(8);
+const user_controller_1 = __webpack_require__(8);
+const user_service_1 = __webpack_require__(9);
 let AppModule = exports.AppModule = class AppModule {
 };
 exports.AppModule = AppModule = tslib_1.__decorate([
@@ -54,15 +54,13 @@ exports.AppController = void 0;
 const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
 const app_service_1 = __webpack_require__(6);
+const swagger_1 = __webpack_require__(7);
 let AppController = exports.AppController = class AppController {
     constructor(appService) {
         this.appService = appService;
     }
     getData() {
         return this.appService.getData();
-    }
-    getYoBro() {
-        return { message: 'Yo Bro' };
     }
 };
 tslib_1.__decorate([
@@ -71,13 +69,8 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:paramtypes", []),
     tslib_1.__metadata("design:returntype", void 0)
 ], AppController.prototype, "getData", null);
-tslib_1.__decorate([
-    (0, common_1.Get)('/yo-bro'),
-    tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", []),
-    tslib_1.__metadata("design:returntype", void 0)
-], AppController.prototype, "getYoBro", null);
 exports.AppController = AppController = tslib_1.__decorate([
+    (0, swagger_1.ApiTags)('Base'),
     (0, common_1.Controller)(),
     tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof app_service_1.AppService !== "undefined" && app_service_1.AppService) === "function" ? _a : Object])
 ], AppController);
@@ -92,16 +85,9 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AppService = void 0;
 const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
-const mockUsers = [
-    { id: 1, name: 'yoko' },
-    { id: 2, name: 'hoko' },
-    { id: 3, name: 'goko' },
-    { id: 4, name: 'boko' },
-    { id: 5, name: 'shoko' },
-];
 let AppService = exports.AppService = class AppService {
     getData() {
-        return { users: mockUsers };
+        return 'Hello World';
     }
 };
 exports.AppService = AppService = tslib_1.__decorate([
@@ -111,6 +97,12 @@ exports.AppService = AppService = tslib_1.__decorate([
 
 /***/ }),
 /* 7 */
+/***/ ((module) => {
+
+module.exports = require("@nestjs/swagger");
+
+/***/ }),
+/* 8 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -119,8 +111,9 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UserController = void 0;
 const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
-const user_service_1 = __webpack_require__(8);
-const types_1 = __webpack_require__(10);
+const user_service_1 = __webpack_require__(9);
+const types_1 = __webpack_require__(11);
+const swagger_1 = __webpack_require__(7);
 let UserController = exports.UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
@@ -156,13 +149,14 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:returntype", void 0)
 ], UserController.prototype, "findOne", null);
 exports.UserController = UserController = tslib_1.__decorate([
+    (0, swagger_1.ApiTags)('User'),
     (0, common_1.Controller)('user'),
     tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof user_service_1.UserService !== "undefined" && user_service_1.UserService) === "function" ? _a : Object])
 ], UserController);
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -171,7 +165,7 @@ exports.UserService = void 0;
 const tslib_1 = __webpack_require__(4);
 const common_1 = __webpack_require__(1);
 // import { UpdateUserDto } from './dto/update-user.dto';
-const user_1 = __webpack_require__(9);
+const user_1 = __webpack_require__(10);
 let UserService = exports.UserService = class UserService {
     findAll() {
         return { users: user_1.mockUsers };
@@ -204,7 +198,7 @@ exports.UserService = UserService = tslib_1.__decorate([
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -220,16 +214,6 @@ exports.mockUsers = [
 
 
 /***/ }),
-/* 10 */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-const tslib_1 = __webpack_require__(4);
-tslib_1.__exportStar(__webpack_require__(11), exports);
-
-
-/***/ }),
 /* 11 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
@@ -237,11 +221,21 @@ tslib_1.__exportStar(__webpack_require__(11), exports);
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const tslib_1 = __webpack_require__(4);
 tslib_1.__exportStar(__webpack_require__(12), exports);
-tslib_1.__exportStar(__webpack_require__(13), exports);
 
 
 /***/ }),
 /* 12 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const tslib_1 = __webpack_require__(4);
+tslib_1.__exportStar(__webpack_require__(13), exports);
+tslib_1.__exportStar(__webpack_require__(14), exports);
+
+
+/***/ }),
+/* 13 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -254,17 +248,17 @@ exports.commonTypes = commonTypes;
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const tslib_1 = __webpack_require__(4);
-tslib_1.__exportStar(__webpack_require__(14), exports);
+tslib_1.__exportStar(__webpack_require__(15), exports);
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -277,12 +271,6 @@ class CreateUserDto {
 }
 exports.CreateUserDto = CreateUserDto;
 
-
-/***/ }),
-/* 15 */
-/***/ ((module) => {
-
-module.exports = require("@nestjs/swagger");
 
 /***/ })
 /******/ 	]);
@@ -321,9 +309,11 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const common_1 = __webpack_require__(1);
 const core_1 = __webpack_require__(2);
 const app_module_1 = __webpack_require__(3);
-const swagger_1 = __webpack_require__(15);
+const swagger_1 = __webpack_require__(7);
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
+    const globalPrefix = 'api';
+    app.setGlobalPrefix(globalPrefix);
     // SWAGGER ==============================================
     const config = new swagger_1.DocumentBuilder()
         .setTitle('Monorepo Practice')
@@ -335,8 +325,6 @@ async function bootstrap() {
     swagger_1.SwaggerModule.setup('docs', app, document);
     // ==============================================
     app.enableCors();
-    const globalPrefix = 'api';
-    app.setGlobalPrefix(globalPrefix);
     const port = process.env.PORT || 3000;
     await app.listen(port);
     common_1.Logger.log(`🚀 Application is running on: http://localhost:${port}/${globalPrefix}`);
