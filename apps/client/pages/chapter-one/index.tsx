@@ -1,20 +1,10 @@
-import { User } from 'common/types';
-import { getUserAPI, getUserByIdAPI, patchUserAPI, postUserAPI } from '@/api';
-import { NextPage } from 'next';
-import React, { useRef, useState } from 'react';
+import { getUserByIdAPI, patchUserAPI, postUserAPI } from '@/api';
+import { GetUsersSection } from '@/components';
 import { errMessages } from '@/constants';
 import { handleAPIError } from '@/utils/helpers';
-
-const getUsers = async () => {
-  try {
-    const { data } = await getUserAPI();
-    const { users } = data;
-    return users;
-  } catch (error) {
-    handleAPIError(error);
-    throw errMessages.unknown;
-  }
-};
+import { User } from 'common/types';
+import { NextPage } from 'next';
+import { useRef, useState } from 'react';
 
 const getUserById = async (id: string | number) => {
   try {
@@ -55,16 +45,7 @@ const ChapterOnePage: NextPage = () => {
 
         <div className="flex gap-8 w-full">
           <div className="flex flex-col gap-4 w-1/2 px-4 py-2">
-            <button
-              onClick={async () => {
-                const userList = await getUsers();
-                console.log('userList');
-                setUsers(userList);
-              }}
-              className="text-white bg-blue-600 px-4 py-2 rounded-lg"
-            >
-              GET Users
-            </button>
+            <GetUsersSection setUsers={setUsers} />
 
             <form
               className="flex flex-col gap-1"
