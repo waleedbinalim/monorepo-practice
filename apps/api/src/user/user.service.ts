@@ -47,7 +47,10 @@ export class UserService {
     return mockUsers[indexOfuser];
   }
 
-  // remove(id: number) {
-  //   return `This action removes a #${id} user`;
-  // }
+  remove(id: number) {
+    const filtered = mockUsers.filter(
+      (user) => user.id.toString() !== id.toString()
+    );
+    return { users: filtered };
+  }
 }

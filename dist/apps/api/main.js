@@ -131,6 +131,9 @@ let UserController = exports.UserController = class UserController {
     update(id, updateUserDto) {
         return this.userService.update(+id, updateUserDto);
     }
+    remove(id) {
+        return this.userService.remove(+id);
+    }
 };
 tslib_1.__decorate([
     (0, swagger_1.ApiCreatedResponse)({ type: types_1.User, isArray: true }),
@@ -164,6 +167,13 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:paramtypes", [Object, typeof (_c = typeof update_user_dto_1.UpdateUserDto !== "undefined" && update_user_dto_1.UpdateUserDto) === "function" ? _c : Object]),
     tslib_1.__metadata("design:returntype", void 0)
 ], UserController.prototype, "update", null);
+tslib_1.__decorate([
+    (0, common_1.Delete)(':id'),
+    tslib_1.__param(0, (0, common_1.Param)('id')),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [String]),
+    tslib_1.__metadata("design:returntype", void 0)
+], UserController.prototype, "remove", null);
 exports.UserController = UserController = tslib_1.__decorate([
     (0, swagger_1.ApiTags)('User'),
     (0, common_1.Controller)('user'),
@@ -219,6 +229,10 @@ let UserService = exports.UserService = class UserService {
             throw new common_1.HttpException('User Not Found', common_1.HttpStatus.NOT_FOUND);
         }
         return user_1.mockUsers[indexOfuser];
+    }
+    remove(id) {
+        const filtered = user_1.mockUsers.filter((user) => user.id.toString() !== id.toString());
+        return { users: filtered };
     }
 };
 exports.UserService = UserService = tslib_1.__decorate([
