@@ -1,5 +1,10 @@
 import { User } from 'common/types';
-import { getUserAPI, getUserByIdAPI, postUserAPI } from '../../api';
+import {
+  getUserAPI,
+  getUserByIdAPI,
+  patchUserAPI,
+  postUserAPI,
+} from '../../api';
 import { NextPage } from 'next';
 import React, { useRef, useState } from 'react';
 import { handleAPIError } from '../../utils/helpers';
@@ -29,6 +34,15 @@ const getUserById = async (id: string | number) => {
 const postUsers = async (name: string) => {
   try {
     const { data } = await postUserAPI({ name });
+    return data;
+  } catch (error) {
+    throw errMessages.unknown;
+  }
+};
+
+const patchUser = async (user: User) => {
+  try {
+    const { data } = await patchUserAPI(user);
     return data;
   } catch (error) {
     throw errMessages.unknown;
@@ -97,6 +111,34 @@ const ChapterOnePage: NextPage = () => {
                   type="submit"
                 >
                   POST
+                </button>
+              </form>
+            </div>
+
+            <div className="w-full">
+              <form
+                className="flex flex-col gap-1"
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  const id = idRef.current.value;
+                  const name = nameRef.current.value;
+                  const patchedUser = await patchUser({ id, name });
+                  setUsers(() => [patchedUser]);
+                }}
+              >
+                <label htmlFor="id">Id:</label>
+                <input className="border-2 px-4 py-2" type="text" ref={idRef} />
+                <label htmlFor="id">name:</label>
+                <input
+                  className="border-2 px-4 py-2"
+                  type="text"
+                  ref={nameRef}
+                />
+                <button
+                  className="w-full text-white bg-blue-600 px-4 py-2 rounded-lg"
+                  type="submit"
+                >
+                  PATCH by Id
                 </button>
               </form>
             </div>
