@@ -33,7 +33,7 @@ const PatchUserSection: React.FC<Props> = ({ setUsers }) => {
             const name = nameRef?.current?.value;
             if (!name || !id) return;
             const patchedUser = await patchUser({ id, name });
-            setUsers(() => [patchedUser]);
+            setUsers([patchedUser]);
           }}
         >
           <label htmlFor="id">Id:</label>
