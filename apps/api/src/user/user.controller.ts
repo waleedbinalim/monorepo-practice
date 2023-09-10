@@ -6,13 +6,16 @@ import {
   Patch,
   Param,
   Delete,
+  UseInterceptors,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateUserDto, User } from 'common/types';
 import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
+import { LoggingInterceptor } from '../interceptors';
 
 @ApiTags('User')
+@UseInterceptors(LoggingInterceptor)
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
