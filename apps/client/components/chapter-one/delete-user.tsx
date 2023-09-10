@@ -1,12 +1,12 @@
-import { patchUserAPI } from '@/api';
+import { deleteUserAPI } from '@/api';
 import { errMessages } from '@/constants';
 import { handleAPIError } from '@/utils/helpers';
 import { User } from 'common/types';
 import React, { useRef } from 'react';
 
-const patchUser = async (user: User) => {
+const deleteUser = async (id: string | number) => {
   try {
-    const { data } = await patchUserAPI(user);
+    const { data } = await deleteUserAPI(id);
     return data;
   } catch (error) {
     handleAPIError(error);
@@ -18,8 +18,7 @@ type Props = {
   setUsers: React.Dispatch<React.SetStateAction<User[]>>;
 };
 
-const PatchUserSection: React.FC<Props> = ({ setUsers }) => {
-  const nameRef = useRef<HTMLInputElement>(null);
+const DeleteUserSection: React.FC<Props> = ({ setUsers }) => {
   const idRef = useRef<HTMLInputElement>(null);
 
   return (
@@ -30,21 +29,20 @@ const PatchUserSection: React.FC<Props> = ({ setUsers }) => {
           onSubmit={async (e) => {
             e.preventDefault();
             const id = idRef?.current?.value;
-            const name = nameRef?.current?.value;
-            if (!name || !id) return;
-            const patchedUser = await patchUser({ id, name });
-            setUsers([patchedUser]);
+
+            if (!id) return;
+            const { users } = await deleteUser(id);
+            setUsers(() => [...users]);
           }}
         >
           <label htmlFor="id">Id:</label>
           <input className="border-2 px-4 py-2" type="text" ref={idRef} />
-          <label htmlFor="id">name:</label>
-          <input className="border-2 px-4 py-2" type="text" ref={nameRef} />
+
           <button
             className="w-full text-white bg-blue-600 px-4 py-2 rounded-lg"
             type="submit"
           >
-            PATCH by Id
+            Delete by Id
           </button>
         </form>
       </div>
@@ -52,4 +50,4 @@ const PatchUserSection: React.FC<Props> = ({ setUsers }) => {
   );
 };
 
-export default PatchUserSection;
+export default DeleteUserSection;

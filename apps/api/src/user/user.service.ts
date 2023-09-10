@@ -35,19 +35,27 @@ export class UserService {
       return user.id.toString() === id.toString();
     });
 
+    if (indexOfuser === -1) {
+      throw new HttpException('User Not Found', HttpStatus.NOT_FOUND);
+    }
+
     mockUsers[indexOfuser] = {
       id: mockUsers[indexOfuser].id,
       name: updateUserDto.name,
     };
 
+    return mockUsers[indexOfuser];
+  }
+
+  remove(id: number | string) {
+    const indexOfuser = mockUsers.findIndex((user) => {
+      return user.id.toString() === id.toString();
+    });
+
     if (indexOfuser === -1) {
       throw new HttpException('User Not Found', HttpStatus.NOT_FOUND);
     }
 
-    return mockUsers[indexOfuser];
-  }
-
-  remove(id: number) {
     const filtered = mockUsers.filter(
       (user) => user.id.toString() !== id.toString()
     );

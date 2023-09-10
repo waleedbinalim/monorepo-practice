@@ -6,13 +6,20 @@ import {
   Patch,
   Param,
   Delete,
+  UseInterceptors,
+  UseGuards,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateUserDto, User } from 'common/types';
 import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
+import { LoggingInterceptor } from '../interceptors';
+import { AuthGuard } from '../guards';
 
 @ApiTags('User')
+@UseInterceptors(LoggingInterceptor)
+@UseGuards(AuthGuard)
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -31,7 +38,7 @@ export class UserController {
 
   @ApiCreatedResponse({ type: User })
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ParseIntPipe) id: string | number) {
     return this.userService.findOne(+id);
   }
 

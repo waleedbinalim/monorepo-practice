@@ -48,6 +48,6 @@ export const patchUserAPI = (user: User): Promise<AxiosResponse<User>> => {
 
 export const deleteUserAPI = (
   id: string | number
-): Promise<AxiosResponse<User>> => {
-  return API.delete(apiUrls.postUser + '/' + id);
+): Promise<AxiosResponse<{ users: User[] }>> => {
+  return API.delete(apiUrls.deleteUsersById(id));
 };
