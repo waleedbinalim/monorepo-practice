@@ -8,6 +8,7 @@ import {
   Delete,
   UseInterceptors,
   UseGuards,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -37,7 +38,7 @@ export class UserController {
 
   @ApiCreatedResponse({ type: User })
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ParseIntPipe) id: string | number) {
     return this.userService.findOne(+id);
   }
 
