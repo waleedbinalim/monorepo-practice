@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { AuthUser } from 'common/types';
 @Injectable()
-export class UsersService {
+export class AuthUsersService {
   private readonly users = [
     { id: 1, name: 'Johnny', username: 'john', password: 'changeme' },
     { id: 2, name: 'Maria', username: 'maria', password: 'guess' },
