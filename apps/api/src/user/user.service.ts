@@ -47,7 +47,15 @@ export class UserService {
     return mockUsers[indexOfuser];
   }
 
-  remove(id: number) {
+  remove(id: number | string) {
+    const indexOfuser = mockUsers.findIndex((user) => {
+      return user.id.toString() === id.toString();
+    });
+
+    if (indexOfuser === -1) {
+      throw new HttpException('User Not Found', HttpStatus.NOT_FOUND);
+    }
+
     const filtered = mockUsers.filter(
       (user) => user.id.toString() !== id.toString()
     );
