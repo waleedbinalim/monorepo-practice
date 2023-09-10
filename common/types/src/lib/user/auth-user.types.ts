@@ -1,3 +1,4 @@
+import { PartialType } from '@nestjs/mapped-types';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class AuthUser {
@@ -24,4 +25,20 @@ export class CreateAuthUserDto {
   username!: string;
   @ApiProperty({ required: true })
   password!: string;
+}
+
+export class SignInReqDto {
+  @ApiProperty({ required: true })
+  username!: string;
+
+  @ApiProperty({ required: true })
+  password!: string;
+}
+
+export class SignInResDto extends PartialType(AuthUser) {
+  @ApiProperty({ required: true })
+  override name!: string;
+
+  @ApiProperty({ required: true })
+  override username!: string;
 }

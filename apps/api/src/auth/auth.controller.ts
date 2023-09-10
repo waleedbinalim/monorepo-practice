@@ -1,16 +1,17 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
+import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
-import { ApiTags, ApiCreatedResponse } from '@nestjs/swagger';
-import { AuthUser } from 'common/types';
+import { AuthUser, SignInReqDto } from 'common/types';
+import { PartialType } from '@nestjs/mapped-types';
 
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  //   @ApiCreatedResponse({ type: AuthUser, isArray: true })
+  @ApiCreatedResponse({ type: PartialType(AuthUser) })
   @Post('login')
-  signIn(@Body() signInDto: Record<string, any>) {
+  signIn(@Body() signInDto: SignInReqDto) {
     return this.authService.signIn(signInDto.username, signInDto.password);
   }
 }
