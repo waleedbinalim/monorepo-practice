@@ -41,4 +41,7 @@ export class SignInResDto extends PartialType(AuthUser) {
 
   @ApiProperty({ required: true })
   override username!: string;
+
+  @ApiProperty({ required: true })
+  token?: string;
 }
