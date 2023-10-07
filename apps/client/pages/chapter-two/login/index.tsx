@@ -35,6 +35,7 @@ const ChapterTwoLoginPage: NextPage = () => {
             <input
               className="border-2 px-4 py-2 w-100 rounded-lg"
               ref={passwordRef}
+              type="password"
             />
             <div className="w-100 flex justify-center mt-2">
               <button
