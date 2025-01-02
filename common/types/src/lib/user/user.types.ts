@@ -9,6 +9,12 @@ export class User {
 
   @ApiProperty({ required: true })
   name!: string;
+
+  @ApiProperty()
+  username?: string;
+
+  @ApiProperty()
+  refreshToken?: string;
 }
 
 export class CreateUserDto {

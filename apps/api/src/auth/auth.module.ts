@@ -4,10 +4,12 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtSecret, jwtTimeLimit } from '../utils/constants';
+import { RefreshTokenStrategy } from './refresh.strategy';
+import { DbModule } from '../db/db.module';
 
 @Module({
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService, RefreshTokenStrategy],
   imports: [
     AuthUsersModule,
     JwtModule.register({
@@ -15,6 +17,7 @@ import { jwtSecret, jwtTimeLimit } from '../utils/constants';
       secret: jwtSecret,
       signOptions: { expiresIn: jwtTimeLimit },
     }),
+    DbModule,
   ],
 })
 export class AuthModule {}

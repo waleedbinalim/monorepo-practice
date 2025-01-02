@@ -16,6 +16,9 @@ export class AuthUser {
 
   @ApiProperty({ required: true })
   password!: string;
+
+  @ApiProperty()
+  refreshToken?: string;
 }
 
 export class CreateAuthUserDto {
